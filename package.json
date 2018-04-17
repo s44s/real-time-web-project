@@ -1,0 +1,19 @@
+{
+  "name": "MySpotifyList",
+  "version": "1.0.0",
+  "description": "Contact form for sending me a song",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "build": "browserify public/js/*.js -o public/dist/bundle.js"
+  },
+  "author": "suustenvoorde",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.0",
+    "node-fetch": "^2.1.2",
+    "socket.io": "^2.1.0",
+    "spotify-web-api-node": "^3.0.0"
+  }
+}
