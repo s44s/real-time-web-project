@@ -18,14 +18,22 @@ var detailRouter = require('./routes/detail');
 app.use('/', indexRouter);
 app.use('/', detailRouter);
 
-// socket.io
+app.checkData = function(songData){}
+
 io.on('connection', function(socket){
-	socket.on('background change', function(color){
-		io.emit('background color', color);
+	// console.log('a user connected');
+	socket.on('disconnect', function(){
+		// console.log('user disconnected');
+	});
+
+	socket.on('getTracksFromPlaylist', function(songData){
+		app.checkData = function(songData){
+			io.emit('newTracksFromPlaylist', songData);
+		}
 	});
 });
 
 //run
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
+http.listen(5000, function(){
+  console.log('App listening on port 5000!');
+});

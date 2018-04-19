@@ -1,19 +1,25 @@
-var form = document.getElementsByTagName('form');
-var radiobuttons = document.querySelectorAll('input[type="radio"]')
 var socket = io();
 
-for (i = 0; i < radiobuttons.length; i++) {
-	radiobuttons[i].addEventListener('change', function(el){
-		var backgroundColor = el.srcElement.value
-		socket.emit('background change', backgroundColor);
-	})
-}
+setTimeout(function(){
+	socket.emit('getTracksFromPlaylist');
+}, 1000);
 
-socket.on('background color', function(color){
-	radiobuttons.forEach(function(el){
-		if(el.value == color) {
-			el.checked = true;
-			document.body.style.backgroundColor = color;
-		}
-	})
+socket.on('newTracksFromPlaylist', function(dataSongs){
+	console.log(dataSongs.body)
+	var main = document.querySelector('main');
+	var ul = document.querySelector('main ul');
+	ul.remove()
+	var ulNew = document.createElement('ul');
+	main.appendChild(ulNew);
+
+	//playlistData.name
+
+	for(var i=0; i < dataSongs.body.tracks.items.length; i++) {
+		var trackName = dataSongs.body.tracks.items[i].track.name;
+		var trackArtistName = dataSongs.body.tracks.items[i].track.artists[0].name;
+		var li = document.createElement('li');
+		var textnode = document.createTextNode(trackName + ' - ' + trackArtistName);
+		li.appendChild(textnode);
+		ulNew.appendChild(li);
+	}
 });

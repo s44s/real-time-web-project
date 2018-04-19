@@ -1,13 +1,7 @@
 <%- include('partials/head.ejs') %>
 
 		<main>
-			<h1><%=  playlistData.name %></h1>
-			<ul>
-				<% for(var i=0; i < playlistData.tracks.items.length; i++) { %>
-				<li><%= playlistData.tracks.items[i].track.name %> - <%= playlistData.tracks.items[i].track.artists[0].name %></li>
-				<% } %>
-			</ul>
-
+			<ul></ul>
 		</main>
 
 <%- include('partials/foot.ejs') %>
