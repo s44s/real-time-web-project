@@ -4,6 +4,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+require('dotenv').config()
+
 // view engine setup > templates weergeven
 app.set('views', 'views');
 app.set('view engine', 'ejs');
@@ -34,6 +36,6 @@ io.on('connection', function(socket){
 });
 
 //run
-http.listen(5000, function(){
-  console.log('App listening on port 5000!');
+http.listen(8000, function(){
+  console.log('App listening on port 8000!');
 });
