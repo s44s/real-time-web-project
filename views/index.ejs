@@ -1,7 +1,33 @@
 <%- include('partials/head.ejs') %>
 
 		<main>
-			<ul></ul>
+			<div class="left">
+				<h1>Get in touch!</h1>
+				<form action="" method="">
+			    <div>
+			        <label for="name">Name:</label>
+			        <input type="text" id="name" name="user_name" />
+			    </div>
+			    <div>
+			        <label for="mail">E-mail:</label>
+			        <input type="email" id="mail" name="user_mail" />
+			    </div>
+			    <div>
+			        <label for="msg">Message:</label>
+			        <textarea id="msg" name="user_message"></textarea>
+			    </div>
+					<div>
+							<label for="song">Song:</label>
+							<input id="song" type="text" placeholder="voeg jouw spotify nummer toe"/>
+					</div>
+					<div class="button">
+							<button type="submit">Send your message</button>
+					</div>
+				</form>
+			</div>
+			<div class="right">
+				<ul></ul>
+			</div>
 		</main>
 
 <%- include('partials/foot.ejs') %>

@@ -5,12 +5,11 @@ setTimeout(function(){
 }, 1000);
 
 socket.on('newTracksFromPlaylist', function(dataSongs){
-	console.log(dataSongs.body)
-	var main = document.querySelector('main');
-	var ul = document.querySelector('main ul');
+	var divRight = document.querySelector('.right');
+	var ul = document.querySelector('ul');
 	ul.remove()
 	var ulNew = document.createElement('ul');
-	main.appendChild(ulNew);
+	divRight.appendChild(ulNew);
 
 	//playlistData.name
 
