@@ -1,22 +1,41 @@
-# real-time-web-project
+# Real-time Spotify application
 
-This repo will hold the project you're going to build during the last two weeks of RTW. It functions as a way to show you've attained the following learning goals of this course:
-
-* Build a Node Web App which consumes an external data source through an API and serves a frontend using routing and templating techniques.
-* Create a "live" web app which reflects changes to the back-end data model in reactive front-end views, using real-time, event-based, messaging technologies like sockets or server-sent-events.
-* Describe their work in a professional readme with insightful diagrams showing the life cycle of their data.
-
-<!-- ☝️ replace this description -->
+In this application users can add songs to the same playlist on the same time. When the owner of the playlist (me) will listen to the song you have add for the first time, you will receive a message. You need to fill in a song you can pick from the Spotify library. Don't you have inspiration at the moment? You can pick one of my recommendation songs of Last.fm.
 
 <!-- Add a nice image here at the end of the week, showing off your shiny frontend 📸 -->
 
-<!-- Maybe a table of contents here? 📚 -->
+## Project information
+So as you have read before, I'm using the Spotify Web Api and Last.fm Api as well. For both API's there are a few things you need to know in case you want to work further on this project:
 
-<!-- How about a section that describes how to install this project? 🤓 -->
+Spotify:
+* Rate-limit:
+* Authorization:
+* Endpoint(s):
 
+Last.fm:
+* Rate-limit: [API Terms of Service](https://www.last.fm/api/tos)
+> You will not make more than 5 requests per originating IP address per second, averaged over a 5 minute period, without prior written consent.
+
+* Authorization:
+* Endpoint(s):
+
+
+<!-- Include the sketch you made in class and describe what the real-time aspect of your project will entail. -->
+
+## How to install
+First of all, download or clone the project, navigate to the root folder and install dependencies.
+
+`npm install`
+
+Run `npm start` to start the server on port 8000.
+
+## Tooling
+- [x] Server: express
+- [x] Templating: ejs
+- [x] Real-time: socket.io
+
+## Features
 <!-- ...but how does one use this project? What are its features 🤔 -->
-
-<!-- What external data source is featured in your project and what are its properties 🌠 -->
 
 <!-- Where do the 0️⃣s and 1️⃣s live in your project? What db system are you using?-->
 
