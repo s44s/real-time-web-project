@@ -2,37 +2,27 @@ var express = require('express');
 var router = express.Router();
 var SpotifyWebApi = require('spotify-web-api-node');
 
+var bodyParser = require('body-parser')
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+var jsonParser = bodyParser.json();
+
 // credentials for spotify
 var spotifyApi = new SpotifyWebApi({
   clientId : process.env.CLIENT_ID,
   clientSecret : process.env.CLIENT_SECRET,
-  redirectUri : 'http://localhost:3000'
+  redirectUri : 'http://localhost:8000/callback'
 });
+
+/* search data */
+var dataSongs;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.render('index', {
-		// playlistData: data.body
+		user: req.user,
+		dataSongs: dataSongs
 	});
 
-	//search
-	// var scopes = ['user-read-private', 'user-read-email'],
-	//     redirectUri = 'https://example.com/callback',
-	//     clientId = '5fe01282e44241328a84e7c5cc169165',
-	//     state = 'some-state-of-my-choice';
-
-	// Setting credentials can be done in the wrapper's constructor, or using the API object's setters.
-	// var spotifyApi = new SpotifyWebApi({
-	//   redirectUri : redirectUri,
-	//   clientId : clientId
-	// });
-	//
-	// // Create the authorization URL
-	// var authorizeURL = spotifyApi.createAuthorizeURL(scopes, state);
-	//
-	// // https://accounts.spotify.com:443/authorize?client_id=5fe01282e44241328a84e7c5cc169165&response_type=code&redirect_uri=https://example.com/callback&scope=user-read-private%20user-read-email&state=some-state-of-my-choice
-	// console.log(authorizeURL);
-	//
 	// //playlist
 	spotifyApi.clientCredentialsGrant()
 	  .then(function(data) {
@@ -51,6 +41,31 @@ router.get('/', function(req, res, next) {
 	  }, function(err) {
 	        console.log('Something went wrong when retrieving an access token', err);
 	  });
+});
+
+router.post('/', function(req, res){
+		var songSearch = req.body.song
+
+		if(!req.user){
+			console.log('geen user')
+		} else {
+			// var code = req.query.valid;
+			var accessToken = req.app.get('accessToken');
+			var code = req.app.get('code');
+
+			spotifyApi.setAccessToken(accessToken);
+
+			// Search tracks whose name, album or artist contains 'Love'
+			spotifyApi.searchTracks(songSearch)
+				.then(function(data) {
+					res.render('index', {
+						user: req.user,
+						dataSongs: data.body.tracks
+					});
+				}, function(err) {
+					console.log('Something went wrong!', err);
+				});
+		}
 });
 
 // Retrieve an access token.

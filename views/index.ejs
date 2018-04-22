@@ -1,30 +1,34 @@
 <%- include('partials/head.ejs') %>
 
 		<main>
-			<div class="left">
-				<h1>Get in touch!</h1>
-				<form action="" method="">
-			    <div>
-			        <label for="name">Name:</label>
-			        <input type="text" id="name" name="user_name" />
-			    </div>
-			    <div>
-			        <label for="mail">E-mail:</label>
-			        <input type="email" id="mail" name="user_mail" />
-			    </div>
-			    <div>
-			        <label for="msg">Message:</label>
-			        <textarea id="msg" name="user_message"></textarea>
-			    </div>
-					<div>
-							<label for="song">Song:</label>
-							<input id="song" type="text" placeholder="voeg jouw spotify nummer toe"/>
-					</div>
-					<div class="button">
-							<button type="submit">Send your message</button>
-					</div>
-				</form>
+			<% if (!user) { %>
+			<div class="login">
+				<a href="/login">Login</a>
 			</div>
+			<% } else { %>
+			<div class="left">
+				<h2>Hello <%= user.username %></h2>
+				<h2>Get in touch!</h2>
+
+				<form></form>
+
+				<form action="/" method="post" enctype="application/json">
+					<label for="song">Song:</label>
+					<input id="song" type="text" name="song" placeholder="voeg jouw spotify nummer toe"/>
+					<button type="submit">Voeg toe</button>
+				</form>
+				<% if (dataSongs !== undefined) { %>
+				<% for (var i = 0; i < dataSongs.items.length; i++) { %>
+				<ul>
+						<img src="<%= dataSongs.items[i].album.images[1].url %>" alt=""/>
+						<li><%= dataSongs.items[i].name %> - <%= dataSongs.items[i].artists[0].name %> </li>
+					<% if (dataSongs.items[i].preview_url !== null) { %>
+						<a target="_blank" href="<%= dataSongs.items[i].preview_url %>">Link</a>
+					<% } %>
+				</ul>
+			 <% }} %>
+			</div>
+			<% }%>
 			<div class="right">
 				<ul></ul>
 			</div>
