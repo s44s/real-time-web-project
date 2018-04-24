@@ -74,6 +74,10 @@ router.post('/', function(req, res){
 				// }
 			).then(function(data) {
 					req.app.newSongData(data)
+					res.render('index', {
+						user: req.user,
+						dataSongs: data.body.tracks
+					});
 			    console.log('Added tracks to playlist!');
 			  }, function(err) {
 			    console.log('Something went wrong.....', err);
