@@ -95,7 +95,26 @@ passport.use(new SpotifyStrategy({
 	//   the user to spotify.com. After authorization, spotify will redirect the user
 	//   back to this application at /auth/spotify/callback
 	app.get('/auth/spotify',
-	  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+	  passport.authenticate('spotify', {
+			scope: [
+				'playlist-read-collaborative',
+				'playlist-read-private',
+				'playlist-modify-public',
+				'playlist-modify-private',
+				'user-read-email',
+				'user-read-private',
+				'user-read-birthdate',
+				'user-read-playback-state',
+				'user-read-currently-playing',
+				'user-modify-playback-state',
+				'user-read-recently-played',
+				'user-top-read',
+				'user-follow-read',
+				'user-follow-modify',
+				'streaming',
+				'user-library-read',
+				'user-library-modify'
+			], showDialog: true}),
 	  function(req, res){
 	// The request will be redirected to spotify for authentication, so this
 	// function will not be called.
@@ -130,13 +149,12 @@ io.on('connection', function(socket){
 		}
 	});
 
-	socket.on('search song', function(song){
-		songSearch = song;
-		io.emit('song', song);
+	socket.on('add song', function(song){
+		app.newSongData = function(song){
+			io.emit('newTracksFromPlaylist', song);
+		}
 	});
 });
-
-app.set('songSearch', songSearch);
 
 
 //run

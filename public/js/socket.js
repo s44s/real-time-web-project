@@ -1,5 +1,7 @@
 var socket = io();
-var form = document.querySelector('form')
+var button = document.querySelectorAll('.add');
+var form = document.querySelector('form.add');
+console.log(form)
 
 /* playlist suus */
 setTimeout(function(){
@@ -24,22 +26,33 @@ socket.on('newTracksFromPlaylist', function(dataSongs){
 });
 
 /* search song */
-form.addEventListener('submit', function(e){
-	var song = document.querySelector('#song');
+// for (var i = 0; i < button.length; i++) {
+	form.addEventListener('submit', function(e){
 
-	e.preventDefault();
-	socket.emit('search song', {
-		value: song.value
-	})
+		var trackKey = e.target.parentElement.childNodes[5].innerHTML;
+		var artistKey = e.target.parentElement.childNodes[7].innerHTML;
 
-	song.value = '';
-});
+		socket.emit('add song', {
+			track: trackKey,
+			artist: artistKey
+		})
+	});
+// }
+
 
 socket.on('song', function(song){
-	console.log(song.value)
-	// var messages = document.getElementById('messages');
-	// var li = document.createElement('li');
-	// var textnode = document.createTextNode(song.username + ': ' + song.message);         // Create a text node
-	// li.appendChild(textnode);
-	// messages.appendChild(li);
+	var divRight = document.querySelector('.right');
+	var ul = document.querySelector('.right ul');
+	ul.remove()
+	var ulNew = document.createElement('ul');
+	divRight.appendChild(ulNew);
+
+	for(var i=0; i < dataSongs.body.tracks.items.length; i++) {
+		var trackName = dataSongs.body.tracks.items[i].track.name;
+		var trackArtistName = dataSongs.body.tracks.items[i].track.artists[0].name;
+		var li = document.createElement('li');
+		var textnode = document.createTextNode(trackName + ' - ' + trackArtistName);
+		li.appendChild(textnode);
+		ulNew.appendChild(li);
+	}
 });

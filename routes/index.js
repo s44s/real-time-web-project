@@ -44,7 +44,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-		var songSearch = req.body.song
+		var songSearch = req.body.song;
+		var songID = req.body.value;
 
 		if(!req.user){
 			console.log('geen user')
@@ -65,6 +66,19 @@ router.post('/', function(req, res){
 				}, function(err) {
 					console.log('Something went wrong!', err);
 				});
+
+			// Add tracks to a playlist
+			spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + songID],
+				// {
+				// 	position : 100
+				// }
+			).then(function(data) {
+					req.app.newSongData(data)
+			    console.log('Added tracks to playlist!');
+			  }, function(err) {
+			    console.log('Something went wrong.....', err);
+			  });
+
 		}
 });
 

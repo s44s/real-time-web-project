@@ -4,6 +4,9 @@
   "description": "Contact form for sending me a song",
   "main": "index.js",
   "scripts": {
+		"dev": "watch 'npm run build'",
+		"watch-js": "watchify public/js/*.js -o public/dist/bundle.js -dv",
+		"watch": "npm run watch-js",
     "start": "node app.js",
     "build": "browserify public/js/*.js -o public/dist/bundle.js"
   },
@@ -21,5 +24,8 @@
     "passport-spotify": "^1.0.0",
     "socket.io": "^2.1.0",
     "spotify-web-api-node": "^3.0.0"
+  },
+  "devDependencies": {
+    "watch": "^1.0.2"
   }
 }
