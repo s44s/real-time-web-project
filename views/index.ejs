@@ -34,10 +34,13 @@
 				</ul>
 			 <% }} %>
 			</div>
-			<% }%>
 			<div class="right">
 				<ul></ul>
+				<% if (user.username == "suustenvoorde") { %>
+				 <button>Publish playlist</button>
+			 <% } %>
 			</div>
+		<% }%>
 		</main>
 
 <%- include('partials/foot.ejs') %>

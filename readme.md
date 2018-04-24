@@ -42,3 +42,11 @@ Run `npm start` to start the server on port 8000.
 <!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
 
 <!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
+
+## Process
+
+> Note that, when using the Web API, only the owner of a collaborative playlist can make changes to that playlist.
+
+NOOOO, WHY?
+
+> We only allow users to add songs to their own playlists, because if collaborative playlists were open to the world, API consumers would be able to search for collaborative playlists and add whatever songs they wanted to any playlist. Until we solve the problem of permissions delegation in a satisfactory manner, we won't implement this feature - so don't expect it in the short term.
