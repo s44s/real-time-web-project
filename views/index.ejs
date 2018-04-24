@@ -26,11 +26,11 @@
 						<p class="hide"><%= dataSongs.items[i].artists[0].id %></p>
 					<% if (dataSongs.items[i].preview_url !== null) { %>
 						<a target="_blank" href="<%= dataSongs.items[i].preview_url %>">Link</a>
+					<% } %>
 						<form class="add" action="/" method="post" enctype="application/json">
 							<input class="hide" name="value" value="<%= dataSongs.items[i].id %>"/>
 							<button type="submit" class="add">Add</button>
 						</form>
-					<% } %>
 				</ul>
 			 <% }} %>
 			</div>
