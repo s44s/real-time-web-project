@@ -50,3 +50,12 @@ Run `npm start` to start the server on port 8000.
 NOOOO, WHY?
 
 > We only allow users to add songs to their own playlists, because if collaborative playlists were open to the world, API consumers would be able to search for collaborative playlists and add whatever songs they wanted to any playlist. Until we solve the problem of permissions delegation in a satisfactory manner, we won't implement this feature - so don't expect it in the short term.
+
+https://blog.cloud66.com/3-tips-for-selecting-the-right-database-for-your-app/
+https://firebearstudio.com/blog/node-js-database.html
+https://www.npmjs.com/package/mysql
+https://medium.com/@eligijuskrepsta/setting-up-node-mysql-and-nginx-on-digital-ocean-247546be20df
+https://github.com/dwyl/how-to-choose-a-database
+
+mysql problem:
+https://stackoverflow.com/questions/49194719/authentication-plugin-caching-sha2-password-cannot-be-loaded

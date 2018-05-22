@@ -2,30 +2,13 @@
 var express = require('express');
 var app = express();
 
-//spotify session passport
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
-var fetch = require('node-fetch');
 
-//socket
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-
-//database
-var mysql = require('mysql');
-var myConnection = require('express-myconnection');
-var connection = {
-  host: "localhost",
-  user: "root",
-  password: "",
-	port: "3506",
-	database: "portfolio"
-};
-
-var con = mysql.createConnection(connection);
-app.use(myConnection(mysql, connection, 'single'));
 
 //.env file
 require('dotenv').config()
@@ -117,7 +100,20 @@ passport.use(new SpotifyStrategy({
 				'playlist-read-collaborative',
 				'playlist-read-private',
 				'playlist-modify-public',
-				'playlist-modify-private'
+				'playlist-modify-private',
+				'user-read-email',
+				'user-read-private',
+				'user-read-birthdate',
+				'user-read-playback-state',
+				'user-read-currently-playing',
+				'user-modify-playback-state',
+				'user-read-recently-played',
+				'user-top-read',
+				'user-follow-read',
+				'user-follow-modify',
+				'streaming',
+				'user-library-read',
+				'user-library-modify'
 			], showDialog: true}),
 	  function(req, res){
 	// The request will be redirected to spotify for authentication, so this
@@ -137,38 +133,31 @@ passport.use(new SpotifyStrategy({
 			res.redirect('/');
 	  });
 
-	app.get('/logout', function(req, res){
-	  req.logout();
-	  res.redirect('/login');
+//playlist real-time
+app.checkData = function(songData){}
+var songSearch;
+
+io.on('connection', function(socket){
+	// console.log('a user connected');
+	socket.on('disconnect', function(){
+		// console.log('user disconnected');
 	});
 
-// Playlist real-time
-// app.getUser = function(user){
-
-	io.on('connection', function(socket){
-		socket.on('add song', function(song){
-
-			var post = {
-				track: song.track,
-				trackid: song.trackid,
-				artist: song.artist,
-				artistid: song.artistid,
-				user_username: song.user
-			};
-
-			con.query('INSERT INTO track SET ?', post, function (error, results, fields) {
-				if (error) throw error;
-			});
-
-			con.query('SELECT * FROM track', function(err, results) {
-				io.emit('newTracksFromPlaylist', results);
-			})
-
-		});
+	socket.on('getTracksFromPlaylist', function(songData){
+		app.checkData = function(songData){
+			io.emit('newTracksFromPlaylist', songData);
+		}
 	});
-// }
 
-// Run
+	socket.on('add song', function(song){
+		app.newSongData = function(song){
+			io.emit('newTracksFromPlaylist', song);
+		}
+	});
+});
+
+
+//run
 http.listen(8000, function(){
   console.log('App listening on port 8000!');
 });
