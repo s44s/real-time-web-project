@@ -60,6 +60,8 @@ socket.on('currentPlaying', function(currentTrack){
 	var div = document.querySelector('main .overall');
 	var playlist = window.playlist;
 
+	console.log(currentTrack.body.is_playing);
+
 	if(currentTrack.body.is_playing == true) {
 		div.remove()
 		var divOverall = document.createElement('div');
