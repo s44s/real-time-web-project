@@ -20,7 +20,8 @@ require('dotenv').config()
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
 var connection = {
-  host: "167.99.32.214",
+	host: "localhost",
+  // host: "167.99.32.214",
   user: "root",
   password: process.env.PASSPORT_DATABASE,
 	port: "3306",
@@ -170,7 +171,7 @@ app.currentPlaying = function(currentPlaying){};
 
 			con.query('INSERT INTO track SET ?', post, function (error, results, fields) {
 				// And done with the connection.
-				con.release();
+				// con.release();
 
 				if (error) throw error;
 			});
