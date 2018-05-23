@@ -56,6 +56,8 @@ socket.on('newTracksFromPlaylist', function(results){
 });
 
 socket.on('currentPlaying', function(currentTrack){
+	console.log('kom je hier??');
+
 	var main = document.querySelector('.contact');
 	var div = document.querySelector('main .overall');
 	var playlist = window.playlist;
