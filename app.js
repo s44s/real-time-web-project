@@ -17,7 +17,8 @@ var io = require('socket.io')(http);
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
 var connection = {
-  host: "167.99.32.214",
+	host: "127.0.0.1",
+  // host: "167.99.32.214",
   user: "root",
   password: "lotje129a",
 	port: "3306",
