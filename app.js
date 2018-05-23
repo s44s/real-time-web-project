@@ -175,7 +175,6 @@ app.currentPlaying = function(currentPlaying){}
 		});
 
 		app.currentPlaying = function(currentPlaying){
-			console.log(currentPlaying);
 			io.emit('currentPlaying', currentPlaying)
 		}
 

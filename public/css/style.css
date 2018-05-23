@@ -213,7 +213,7 @@ body {
 }
 
 .overall p {
-	margin-left: calc(40px + 5vw);
+	left: calc(40px + 5vw);
 }
 
 @keyframes equalize {

@@ -90,14 +90,19 @@ socket.on('currentPlaying', function(currentTrack){
 
 
 	playlist.forEach(function(el){
-		console.log(el);
 		if(el.trackid == currentTrack.body.item.id && el.user_username == window.user.id) {
 			var p = document.createElement('p');
 			var textnode = document.createTextNode('Suus luister nu jouw nummer "' + el.track + '"');
 			p.appendChild(textnode);
 			divOverall.appendChild(p);
 		} else {
-			console.log('no');
+			var p = document.querySelector('.overall p');
+			// if(!p) {
+			//
+			// } else {
+			// 	console.log('remove');
+			// 	p.remove();
+			// }
 		}
 	})
 	// if(playlist.includes(currentTrack.body.item.id)) {
