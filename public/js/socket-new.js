@@ -15,7 +15,6 @@ for (var i = 0; i < button.length; i++) {
 		console.log(url);
 		console.log(e.target.parentElement);
 
-
 		console.log(window.user);
 		socket.emit('add song', {
 			image: url,
