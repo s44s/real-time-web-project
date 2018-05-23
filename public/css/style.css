@@ -1,28 +1,298 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-family: helvetica;
 }
 
-h1 {
-
+:root {
+  --main-black: black;
+	--accentcolor-yellow: #FFBE00;
+	--accentcolor-green1: #00DC93;
+	--accentcolor-green2: #68BE9A;
+	--accentcolor-green3: #768AE2;
 }
 
-form {
+/* menu */
+header nav a video {
+	position: absolute;
+	right: 5vw;
+	top: 2vh;
+	outline: 0;
+	width: 60px;
+}
 
+nav a:focus video, nav a:hover video {
+	width: 80px;
+}
+
+nav img {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	top: 2vh;
+	left: 5vw;
+}
+
+nav img + a {
+	position: absolute;
+	top: 3vh;
+	left: calc(6vw + 30px);
+	color: black;
+}
+
+nav img + a + a{
+	position: absolute;
+	top: 3vh;
+	left: calc(6vw + 30px);
+	color: black;
+}
+
+/* border */
+body {
+	height: 100%;
+}
+
+body:before, body:after {
+  content: "";
+  position: fixed;
+  background: black;
+  left: 0;
+  right: 0;
+  height: 10px;
+	z-index: 100;
+}
+
+body:before {
+  top: 0;
+}
+
+body:after {
+  bottom: 0;
+}
+
+body {
+	z-index: 100;
+  border-left: 10px solid black;
+  border-right: 10px solid black;
+}
+
+/* contact page */
+.contact {
+	padding-top: 10%;
+}
+
+.contact h1 {
+	font-size: 5em;
+	font-family: helvetica;
+	text-decoration: underline;
+}
+
+.contact p {
+	margin-top: 5%;
+}
+
+/* content */
+.content {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.content div {
+	flex-basis: 40vw;
 }
 
 .left {
-	float: left;
-	width: 40vw;
 	margin-left: 5vw;
-}
-
-.right {
-	float: right;
-	width: 40vw;
-	margin-right: 5vw;
 }
 
 .hide {
 	display: none;
+}
+
+/* playlist */
+.right {
+	position: sticky;
+	top: 10vh;
+	height: 100vh;
+}
+
+.right ol {
+	width: 25vw;
+	background-color: black;
+	color: white;
+	padding: 5% 10%;
+}
+
+.right ol li {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin-bottom: 4%;
+	padding-bottom: 2%;
+	border-bottom: 1px solid white;
+}
+
+.right ol li img {
+	width: 30px;
+	height: 30px;
+}
+
+.right ol li p:first-of-type {
+	font-size: 0.9em;
+	flex-basis: calc(100% - 45px);
+	margin-top: 0;
+	margin-left: 15px;
+}
+
+.right ol li p:last-of-type {
+	font-size: 0.9em;
+	color: rgba(255,255,255,0.6);
+	margin-top: 0;
+	margin-left: 45px;
+}
+
+/* login page */
+.login {
+	height: 100vh;
+}
+
+.login a {
+	display: block;
+	position: absolute;
+	width: 30vw;
+	text-align: center;
+	left: 35vw;
+	top: calc((100% - 4em)/2);
+	padding: 1em 0;
+	font-size: 2em;
+	background-color: black;
+	color: white;
+	text-decoration: none;
+}
+
+/* current playing */
+.overall {
+	position: absolute;
+	bottom: 5vh;
+	left: 5vw;
+}
+
+.overall div {
+	display: flex;
+	justify-content: space-between;
+	width: 40px;
+	transform: rotate(180deg);
+}
+
+.overall .one {
+	width: 10px;
+	height: 40px;
+	left: 20px;
+	background-color: black;
+	animation: equalize 4s 0s infinite;
+	animation-delay: -1.9s;
+}
+
+.overall .two {
+	width: 10px;
+	height: 60px;
+	left: 35px;
+	background-color: black;
+	animation: equalize 4s 0s infinite;
+	animation-delay: -2.0s;
+}
+
+.overall .three {
+	width: 10px;
+	height: 50px;
+	background-color: black;
+	animation: equalize 4s 0s infinite;
+	animation-delay: -2.1s;
+}
+
+.overall p {
+	margin-left: calc(40px + 5vw);
+}
+
+@keyframes equalize {
+  0% {
+    height: 60px;
+  }
+  4% {
+    height: 50px;
+  }
+  8% {
+    height: 40px;
+  }
+  12% {
+    height: 30px;
+  }
+  16% {
+    height: 20px;
+  }
+  20% {
+    height: 30px;
+  }
+  24% {
+    height: 40px;
+  }
+  28% {
+    height: 10px;
+  }
+  32% {
+    height: 40px;
+  }
+  36% {
+    height: 60px;
+  }
+  40% {
+    height: 20px;
+  }
+  44% {
+    height: 40px;
+  }
+  48% {
+    height: 70px;
+  }
+  52% {
+    height: 30px;
+  }
+  56% {
+    height: 10px;
+  }
+  60% {
+    height: 30px;
+  }
+  64% {
+    height: 50px;
+  }
+  68% {
+    height: 60px;
+  }
+  72% {
+    height: 70px;
+  }
+  76% {
+    height: 80px;
+  }
+  80% {
+    height: 70px;
+  }
+  84% {
+    height: 60px;
+  }
+  88% {
+    height: 50px;
+  }
+  92% {
+    height: 60px;
+  }
+  96% {
+    height: 70px;
+  }
+  100% {
+    height: 80px;
+  }
 }

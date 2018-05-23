@@ -1,56 +1,35 @@
 <%- include('partials/head.ejs') %>
-
-		<main>
-			<% if (!user) { %>
-			<div class="login">
-				<a href="/login">Login</a>
-			</div>
-			<% } else { %>
+		<header>
 			<nav>
-				<a href="/logout">Log Out</a>
+				<a href="http://webdesign.test/">
+					<video loop muted autoplay>
+						<source src="images/header-blue.ogv" type="video/ogg">
+						<source src="images/header-blue.mov" type="video/mov">
+					</video>
+				</a>
+				<img src="<%= user.photos[0] %>" alt="spotify profile picture"/>
+				<a href="/logout"><%= user.displayName %></a>
+				<% if(!user.displayName) { %>
+				<a href="/logout"><%= user.username %></a>
+				<% } %>
 			</nav>
-			<div class="left">
-				<h2>Hello <%= user.username %></h2>
-				<h2>Get in touch!</h2>
+		</header>
 
-				<form action="/" method="post" enctype="application/json">
-					<label for="song">Song:</label>
-					<input id="song" type="text" name="song" placeholder="voeg jouw spotify nummer toe"/>
-					<button type="submit">Zoek</button>
-				</form>
-				<% if (dataSongs !== undefined) { %>
-				<% for (var i = 0; i < dataSongs.items.length; i++) { %>
-				<ul>
-						<img src="<%= dataSongs.items[i].album.images[1].url %>" alt=""/>
-						<li><%= dataSongs.items[i].name %></li>
-						<li><%= dataSongs.items[i].artists[0].name %> </li>
-						<p class="hide"><%= dataSongs.items[i].id %></p>
-						<p class="hide"><%= dataSongs.items[i].artists[0].id %></p>
-					<% if (dataSongs.items[i].preview_url !== null) { %>
-						<a target="_blank" href="<%= dataSongs.items[i].preview_url %>">Link</a>
-					<% } %>
-						<!-- <form class="add" action="/" method="post" enctype="application/json"> -->
-							<input class="hide" name="value" value="<%= dataSongs.items[i].id %>"/>
-							<button type="submit" class="add">Add</button>
-						<!-- </form> -->
-				</ul>
-			 <% }} %>
+		<main class="contact">
+			<!-- <% if (!user) { %>
+			<nav class="login">
+				<a href="/login">Login</a>
+			</nav>
+			<% } else { %> -->
+			<div class="content">
+				<%- include('partials/explanation.ejs') %>
+				<%- include('partials/playlist.ejs') %>
 			</div>
-			<div class="right">
-				<h1>Suus haar playlist</h1>
-				<div class="playlist">
-					<ul>
-						<% if (playlist !== undefined) { %>
-						<% for (var i = 0; i < playlist.length; i++) { %>
-						<li><%= playlist[i].artist %> - <%= playlist[i].track %></li>
-						<% }} %>
-					</ul>
-				</div>
-				<% if (user.username == "suustenvoorde") { %>
-				 <button>Publish playlist</button>
-			 <% } %>
-			</div>
-		<% }%>
+			<di class="overall"></div>
+
+
+		<!-- <% } %> -->
+
 		</main>
 		<script>
 			window.user = <%- JSON.stringify(user || null) %>;

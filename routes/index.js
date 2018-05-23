@@ -13,11 +13,11 @@ var spotifyApi = new SpotifyWebApi({
   redirectUri : process.env.REDIRECT
 });
 
-
 /* search data */
 var accessTokenSuus;
 var dataSongs;
 var playlist;
+var currentPlaying;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -56,13 +56,56 @@ router.get('/', function(req, res, next) {
 
 			});
 
+			console.log(req.user.id);
+
+			if(req.user.id == 'suustenvoorde'){
+				var accessToken = req.app.get('accessToken');
+				spotifyApi.setAccessToken(accessToken);
+
+				// Get tracks in a playlist
+				setInterval(function(){
+					spotifyApi.getMyCurrentPlaybackState(process.env.USERNAME)
+						.then(function(data) {
+							// Output items
+							// console.log(data.body.);
+							currentPlaying = data;
+							req.app.currentPlaying(currentPlaying)
+						})
+				}, 1000),
+				function(err) {
+						console.log('Something went wrong when loading the data!', err);
+					}
+				}
+
+
 			//get data from tracks
 			connection.query('SELECT * FROM track', function(err, results) {
 				playlist = results;
-				res.render('index', {
-					user: req.user,
-					dataSongs: dataSongs,
-					playlist: playlist
+
+				// for (var i = 0; i < results.length; i++) {
+				// 	// Remove tracks from a playlist at a specific position
+				// 	spotifyApi.removeTracksFromPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, [{ uri : "spotify:track:" + results[i].trackid }])
+				// 	  .then(function(data) {
+				// 	    console.log('Tracks removed from playlist!');
+				// 	  }, function(err) {
+				// 	    console.log('Something went wrong!', err);
+				// 	  });
+				// 	spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + results[i].trackid],
+				// 		// {
+				// 		// 	position : 100
+				// 		// }
+				// 	).then(function(data) {
+				// 			console.log();
+				// 			console.log('Added tracks to playlist!');
+				// 		}, function(err) {
+				// 			console.log('Something went wrong.....', err);
+				// 		});
+				// 	}
+
+					res.render('index', {
+						user: req.user,
+						dataSongs: dataSongs,
+						playlist: playlist
 				});
 			});
 		});
@@ -77,18 +120,18 @@ router.get('/', function(req, res, next) {
 	//
 	// 		spotifyApi.setAccessToken(data.body['access_token']);
 	//
-	// 		setInterval(function(){
-	// 			spotifyApi.getPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID)
-	// 				.then(function(data) {
-	// 					req.app.checkData(data)
-	// 				})
-	// 		}, 3000),
-	// 		function(err) {
-	// 		    console.log('Something went wrong when loading the data!', err);
-	// 		  }
-	//   }, function(err) {
-	//         console.log('Something went wrong when retrieving an access token', err);
-	//   });
+		// 	setInterval(function(){
+		// 		spotifyApi.getPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID)
+		// 			.then(function(data) {
+		// 				req.app.checkData(data)
+		// 			})
+		// 	}, 3000),
+		// 	function(err) {
+		// 	    console.log('Something went wrong when loading the data!', err);
+		// 	  }
+	  // }, function(err) {
+	  //       console.log('Something went wrong when retrieving an access token', err);
+	  // });
 });
 
 router.post('/', function(req, res){
@@ -129,21 +172,6 @@ router.post('/', function(req, res){
 					dataSongs: dataSongs,
 					playlist: playlist
 				});
-
-				// spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + songID],
-				// 	// {
-				// 	// 	position : 100
-				// 	// }
-				// ).then(function(data) {
-				// 		req.app.newSongData(data)
-				// 		res.render('index', {
-				// 			user: req.user,
-				// 			dataSongs: data.body.tracks
-				// 		});
-				// 		console.log('Added tracks to playlist!');
-				// 	}, function(err) {
-				// 		console.log('Something went wrong.....', err);
-				// 	});
 			}
 		}
 });

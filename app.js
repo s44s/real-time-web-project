@@ -17,10 +17,10 @@ var io = require('socket.io')(http);
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
 var connection = {
-  host: "localhost",
+  host: "167.99.32.214",
   user: "root",
-  password: "",
-	port: "3506",
+  password: "lotje129a",
+	port: "3306",
 	database: "portfolio"
 };
 
@@ -69,7 +69,7 @@ passport.use(new SpotifyStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   callbackURL: process.env.REDIRECT
-  },function(accessToken, refreshToken, expires_in, profile, done) {
+  }, function(accessToken, refreshToken, expires_in, profile, done) {
 		app.set('accessToken', accessToken);
 
     // asynchronous verification, for effect...
@@ -81,6 +81,7 @@ passport.use(new SpotifyStrategy({
       return done(null, profile);
     });
   }));
+
 
 	app.use(cookieParser());
 	app.use(bodyParser.json());
@@ -117,7 +118,10 @@ passport.use(new SpotifyStrategy({
 				'playlist-read-collaborative',
 				'playlist-read-private',
 				'playlist-modify-public',
-				'playlist-modify-private'
+				'playlist-modify-private',
+				'user-modify-playback-state',
+				'user-read-currently-playing',
+				'user-read-playback-state'
 			], showDialog: true}),
 	  function(req, res){
 	// The request will be redirected to spotify for authentication, so this
@@ -143,16 +147,20 @@ passport.use(new SpotifyStrategy({
 	});
 
 // Playlist real-time
-// app.getUser = function(user){
+app.currentPlaying = function(currentPlaying){}
 
+// app.getUser = function(user){
 	io.on('connection', function(socket){
 		socket.on('add song', function(song){
+
+			spotify();
 
 			var post = {
 				track: song.track,
 				trackid: song.trackid,
 				artist: song.artist,
 				artistid: song.artistid,
+				image: song.image,
 				user_username: song.user
 			};
 
@@ -165,7 +173,14 @@ passport.use(new SpotifyStrategy({
 			})
 
 		});
+
+		app.currentPlaying = function(currentPlaying){
+			console.log(currentPlaying);
+			io.emit('currentPlaying', currentPlaying)
+		}
+
 	});
+
 // }
 
 // Run

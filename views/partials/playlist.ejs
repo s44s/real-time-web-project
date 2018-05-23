@@ -1,0 +1,22 @@
+<div class="right">
+	<h2>Suus haar playlist</h2>
+	<div class="playlist">
+		<ol>
+			<% if (playlist !== undefined) { %>
+			<% for (var i = 0; i < playlist.length; i++) { %>
+			<li class="track">
+				<img src="<%= playlist[i].image %> " alt="album cover"/>
+				<p><%= playlist[i].track %></p>
+				<p><%= playlist[i].artist %></p>
+			</li>
+			<% }} %>
+		</ol>
+	</div>
+	<% if (user.username == "suustenvoorde") { %>
+	 <button>Publish playlist</button>
+ <% } %>
+</div>
+
+<script>
+	window.playlist = <%- JSON.stringify(playlist || null) %>;
+</script>
