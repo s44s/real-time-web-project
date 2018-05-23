@@ -153,8 +153,6 @@ app.currentPlaying = function(currentPlaying){}
 	io.on('connection', function(socket){
 		socket.on('add song', function(song){
 
-			spotify();
-
 			var post = {
 				track: song.track,
 				trackid: song.trackid,
