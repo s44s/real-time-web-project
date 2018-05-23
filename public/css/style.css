@@ -115,7 +115,9 @@ body {
 .right {
 	position: sticky;
 	top: 10vh;
-	height: 100vh;
+	height: 80vh;
+	margin-bottom: 5%;
+	overflow: scroll;
 }
 
 .right ol {
