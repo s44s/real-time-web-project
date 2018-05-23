@@ -151,6 +151,10 @@ app.currentPlaying = function(currentPlaying){};
 
 // app.getUser = function(user){
 	io.on('connection', function(socket){
+		app.currentPlaying = function(currentPlaying){
+			io.emit('currentPlaying', currentPlaying)
+		}
+
 		socket.on('add song', function(song){
 
 			console.log(song.image);
@@ -173,11 +177,6 @@ app.currentPlaying = function(currentPlaying){};
 			})
 
 		});
-
-		app.currentPlaying = function(currentPlaying){
-			io.emit('currentPlaying', currentPlaying)
-		}
-
 	});
 
 // }
