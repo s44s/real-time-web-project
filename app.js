@@ -121,7 +121,8 @@ passport.use(new SpotifyStrategy({
 				'playlist-modify-private',
 				'user-modify-playback-state',
 				'user-read-currently-playing',
-				'user-read-playback-state'
+				'user-read-playback-state',
+				'user-read-email'
 			], showDialog: true}),
 	  function(req, res){
 	// The request will be redirected to spotify for authentication, so this

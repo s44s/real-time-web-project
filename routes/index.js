@@ -25,11 +25,14 @@ router.get('/', function(req, res, next) {
 		res.render('login')
 	} else {
 
+		console.log(req.user.emails[0].value);
+
 		req.getConnection(function(err, connection) {
 			var post = {
 				username: req.user.id,
 				displayname: req.user.displayName,
-				image: req.user.photos[0]
+				image: req.user.photos[0],
+				email: req.user.emails[0].value
 			};
 
 			//select user
@@ -82,25 +85,24 @@ router.get('/', function(req, res, next) {
 			connection.query('SELECT * FROM track', function(err, results) {
 				playlist = results;
 
-				// for (var i = 0; i < results.length; i++) {
-				// 	// Remove tracks from a playlist at a specific position
-				// 	spotifyApi.removeTracksFromPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, [{ uri : "spotify:track:" + results[i].trackid }])
-				// 	  .then(function(data) {
-				// 	    console.log('Tracks removed from playlist!');
-				// 	  }, function(err) {
-				// 	    console.log('Something went wrong!', err);
-				// 	  });
-				// 	spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + results[i].trackid],
-				// 		// {
-				// 		// 	position : 100
-				// 		// }
-				// 	).then(function(data) {
-				// 			console.log();
-				// 			console.log('Added tracks to playlist!');
-				// 		}, function(err) {
-				// 			console.log('Something went wrong.....', err);
-				// 		});
-				// 	}
+				for (var i = 0; i < results.length; i++) {
+					// Remove tracks from a playlist at a specific position
+					spotifyApi.removeTracksFromPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, [{ uri : "spotify:track:" + results[i].trackid }])
+					  .then(function(data) {
+					    // console.log('Tracks removed from playlist!');
+					  }, function(err) {
+					    console.log('Something went wrong!', err);
+					  });
+					spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + results[i].trackid],
+						// {
+						// 	position : 100
+						// }
+					).then(function(data) {
+							// console.log('Added tracks to playlist!');
+						}, function(err) {
+							console.log('Something went wrong.....', err);
+						});
+					}
 
 					res.render('index', {
 						user: req.user,
