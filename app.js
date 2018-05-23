@@ -20,11 +20,9 @@ require('dotenv').config()
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
 var connection = {
-	host: "localhost",
-  // host: "167.99.32.214",
+  host: process.env.HOST,
   user: "root",
-  // password: process.env.PASSPORT_DATABASE,
-	password: "lotje129a",
+  password: process.env.PASSPORT_DATABASE,
 	port: "3306",
 	database: "portfolio"
 };
