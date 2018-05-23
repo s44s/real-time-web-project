@@ -147,7 +147,7 @@ passport.use(new SpotifyStrategy({
 	});
 
 // Playlist real-time
-app.currentPlaying = function(currentPlaying){}
+app.currentPlaying = function(currentPlaying){};
 
 // app.getUser = function(user){
 	io.on('connection', function(socket){

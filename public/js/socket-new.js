@@ -11,11 +11,8 @@ for (var i = 0; i < button.length; i++) {
 		var artistKey = e.target.parentElement.childNodes[5].innerHTML;
 		var artistID = e.target.parentElement.childNodes[9].innerHTML;
 
-
 		console.log(url);
-		console.log(e.target.parentElement);
 
-		console.log(window.user);
 		socket.emit('add song', {
 			image: url,
 			track: trackKey,
@@ -30,7 +27,6 @@ for (var i = 0; i < button.length; i++) {
 socket.on('newTracksFromPlaylist', function(results){
 	var divRight = document.querySelector('.right .playlist');
 	var ul = document.querySelector('.right ol');
-	console.log(ul);
 
 	ul.remove()
 	var ulNew = document.createElement('ol');
