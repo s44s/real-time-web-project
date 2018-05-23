@@ -60,6 +60,7 @@ socket.on('currentPlaying', function(currentTrack){
 	var div = document.querySelector('main .overall');
 	var playlist = window.playlist;
 
+	console.log('kom je hier??');
 	console.log(currentTrack.body.is_playing);
 
 	if(currentTrack.body.is_playing == true) {
