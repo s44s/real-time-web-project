@@ -23,7 +23,8 @@ var connection = {
 	host: "localhost",
   // host: "167.99.32.214",
   user: "root",
-  password: process.env.PASSPORT_DATABASE,
+  // password: process.env.PASSPORT_DATABASE,
+	password: "lotje129a",
 	port: "3306",
 	database: "portfolio"
 };
