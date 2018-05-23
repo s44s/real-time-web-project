@@ -13,23 +13,22 @@ var fetch = require('node-fetch');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+//.env file
+require('dotenv').config()
+
 //database
 var mysql = require('mysql');
 var myConnection = require('express-myconnection');
 var connection = {
-	host: "127.0.0.1",
-  // host: "167.99.32.214",
+  host: "167.99.32.214",
   user: "root",
-  password: "lotje129a",
+  password: process.env.PASSPORT_DATABASE,
 	port: "3306",
 	database: "portfolio"
 };
 
 var con = mysql.createConnection(connection);
 app.use(myConnection(mysql, connection, 'single'));
-
-//.env file
-require('dotenv').config()
 
 //passport spotify
 var passport = require('passport');
@@ -170,6 +169,9 @@ app.currentPlaying = function(currentPlaying){};
 			};
 
 			con.query('INSERT INTO track SET ?', post, function (error, results, fields) {
+				// And done with the connection.
+				con.release();
+
 				if (error) throw error;
 			});
 

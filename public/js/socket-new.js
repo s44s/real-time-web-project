@@ -59,17 +59,29 @@ socket.on('currentPlaying', function(currentTrack){
 	var main = document.querySelector('.contact');
 	var div = document.querySelector('main .overall');
 	var playlist = window.playlist;
+	var divOverall = document.createElement('div');
 
-	console.log(currentTrack.body.is_playing);
+
+	playlist.forEach(function(el){
+		if(el.trackid == currentTrack.body.item.id && el.user_username == window.user.id) {
+			var p = document.createElement('p');
+			var textnode = document.createTextNode('Suus luister nu jouw nummer "' + el.track + '"');
+			p.appendChild(textnode);
+			divOverall.appendChild(p);
+		} else {
+			var p = document.querySelector('.overall p');
+		}
+	})
 
 	if(currentTrack.body.is_playing == true) {
 		div.remove()
-		var divOverall = document.createElement('div');
 		divOverall.classList.add('overall');
 		main.appendChild(divOverall);
 
 		var divFlex = document.createElement('div');
-		divOverall.appendChild(divFlex);
+		// divOverall.appendChild(divFlex);
+		divOverall.insertBefore(divFlex, divOverall.childNodes[0]);
+
 
 		var div1 = document.createElement('div');
 		div1.classList.add('one');
@@ -89,24 +101,6 @@ socket.on('currentPlaying', function(currentTrack){
 		divOverall.classList.add('overall');
 		main.appendChild(divOverall);
 	}
-
-
-	playlist.forEach(function(el){
-		if(el.trackid == currentTrack.body.item.id && el.user_username == window.user.id) {
-			var p = document.createElement('p');
-			var textnode = document.createTextNode('Suus luister nu jouw nummer "' + el.track + '"');
-			p.appendChild(textnode);
-			divOverall.appendChild(p);
-		} else {
-			var p = document.querySelector('.overall p');
-			// if(!p) {
-			//
-			// } else {
-			// 	console.log('remove');
-			// 	p.remove();
-			// }
-		}
-	})
 	// if(playlist.includes(currentTrack.body.item.id)) {
 	// 	console.log('yes');
 	// } else {

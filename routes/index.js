@@ -73,7 +73,7 @@ router.get('/', function(req, res, next) {
 						})
 				}, 1000),
 				function(err) {
-						console.log('Something went wrong when loading the data!', err);
+						console.log('Ah oh Something went wrong when loading the data!', err);
 					}
 				}
 
