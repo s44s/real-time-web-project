@@ -59,8 +59,6 @@ router.get('/', function(req, res, next) {
 
 			});
 
-			console.log(req.user.id);
-
 			if(req.user.id == 'suustenvoorde'){
 				var accessToken = req.app.get('accessToken');
 				spotifyApi.setAccessToken(accessToken);
