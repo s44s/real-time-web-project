@@ -11,6 +11,11 @@ for (var i = 0; i < button.length; i++) {
 		var artistKey = e.target.parentElement.childNodes[5].innerHTML;
 		var artistID = e.target.parentElement.childNodes[9].innerHTML;
 
+
+		console.log(url);
+		console.log(e.target.parentElement);
+
+
 		console.log(window.user);
 		socket.emit('add song', {
 			image: url,
@@ -56,13 +61,10 @@ socket.on('newTracksFromPlaylist', function(results){
 });
 
 socket.on('currentPlaying', function(currentTrack){
-	console.log('kom je hier??');
-
 	var main = document.querySelector('.contact');
 	var div = document.querySelector('main .overall');
 	var playlist = window.playlist;
 
-	console.log('kom je hier??');
 	console.log(currentTrack.body.is_playing);
 
 	if(currentTrack.body.is_playing == true) {
