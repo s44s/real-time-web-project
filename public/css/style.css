@@ -26,6 +26,11 @@
 	z-index: 1000;
 }
 
+.offline + p {
+	background-color: white;
+	z-index: 1000;
+}
+
 .active {
 	display: block;
 }
