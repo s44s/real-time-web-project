@@ -13,8 +13,9 @@ First of all, download or clone the project, navigate to the root folder and ins
 
 Run `npm start` to start the server on port 8000.
 
-Create a `.env` file with the following values:
-You can find the following values on [this website](https://beta.developer.spotify.com/):
+Create a `.env` file with the following values.
+
+To fill in this values, you have to create a Spotify Developer account on [this website](https://beta.developer.spotify.com/):
 - CLIENT_SECRET
 - CLIENT_ID
 - REDIRECT
@@ -54,6 +55,38 @@ This happens when a user adds a track. When the user add a track to the playlist
 
 Furthermore, Spotify has the function `getMyCurrentPlaybackState()` which shows you if the user is currently listening to music. By polling this function every second, the client side will show the results.
 
+
+## Offline
+To check the online status of the browser, I'm using `navigator.online`. Browsers implement this property differently. In Chrome and Safari, if the browser is not able to connect to a local area network (LAN) or a router, it is offline. In Firefox and Internet Explorer, switching the browser to offline mode sends a false value. Because I want to see the changes in the network state, I'm using addEventListener to listen for the events on window.ononline and window.onoffline.
+
+```javascript
+var errorMessage = document.querySelector('.offline');
+
+if (navigator.onLine) {
+	errorMessage.classList.remove('active');
+} else {
+	errorMessage.classList.add('active');
+}
+
+window.addEventListener("offline", function(e) {
+	errorMessage.classList.add('active');
+}, false);
+
+window.addEventListener("online", function(e) {
+	errorMessage.classList.remove('active');
+}, false);
+```
+
+To check if the server is offline or the internet connection is down:
+
+``` javascript
+socket.on('disconnect', function() {
+	console.log('disconnect..');
+	errorMessage.innerHTML = "Your server is offline, or your WiFi is down";
+	errorMessage.classList.add('active');
+});
+```
+
 ## Tooling
 - [x] Server: express
 - [x] Templating: ejs
@@ -70,14 +103,6 @@ Furthermore, Spotify has the function `getMyCurrentPlaybackState()` which shows 
 - [ ] You will receive an email when Suus have played your song
 - [ ] You are able to follow this public playlist on spotify
 - [ ] You can listen to the songs in the browser (real-time)
-
-<!-- ...but how does one use this project? What are its features 🤔 -->
-
-<!-- Where do the 0️⃣s and 1️⃣s live in your project? What db system are you using?-->
-
-<!-- Maybe a checklist of done stuff and stuff still on your wishlist? ✅ -->
-
-<!-- How about a license here? 📜 (or is it a licence?) 🤷 -->
 
 ## Process
 
