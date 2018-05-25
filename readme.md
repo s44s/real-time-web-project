@@ -45,8 +45,7 @@ For this application I have chosen to use a MYSQL database. This because I want 
 ![](./screenshots/database.png "database structure")
 
 ## Data life cycle
-<!-- Include the sketch you made in class and describe what the real-time aspect of your project will entail. -->
-
+![](./screenshots/datalifecycle.png "database structure")
 
 ## Socket.io
 For making this application real-time, I used socket.io to communicate between the server and the client.
