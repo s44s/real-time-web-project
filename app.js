@@ -150,6 +150,19 @@ passport.use(new SpotifyStrategy({
 // Playlist real-time
 app.currentPlaying = function(currentPlaying){};
 
+
+	io.on('connect_failed', function() {
+		io.emit('fail', fail)
+  });
+
+// 	io.on('connect_error', function() {
+//
+// 	});
+//
+// 	io.on( 'disconnect', function () {
+//     console.log( 'disconnected to server' );
+// } );
+
 // app.getUser = function(user){
 	io.on('connection', function(socket){
 		app.currentPlaying = function(currentPlaying){

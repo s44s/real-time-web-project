@@ -108,3 +108,8 @@ socket.on('currentPlaying', function(currentTrack){
 	// }
 
 })
+
+socket.on('fail', function(fail){
+	console.log(fail);
+	errorMessage.classList.add('active');
+});
