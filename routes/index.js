@@ -83,24 +83,24 @@ router.get('/', function(req, res, next) {
 			connection.query('SELECT * FROM track', function(err, results) {
 				playlist = results;
 
-				for (var i = 0; i < results.length; i++) {
-					// Remove tracks from a playlist at a specific position
-					spotifyApi.removeTracksFromPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, [{ uri : "spotify:track:" + results[i].trackid }])
-					  .then(function(data) {
-					    // console.log('Tracks removed from playlist!');
-					  }, function(err) {
-					    console.log('Something went wrong!', err);
-					  });
-					spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + results[i].trackid],
-						// {
-						// 	position : 100
-						// }
-					).then(function(data) {
-							// console.log('Added tracks to playlist!');
-						}, function(err) {
-							console.log('Something went wrong.....', err);
-						});
-					}
+				// for (var i = 0; i < results.length; i++) {
+				// 	// Remove tracks from a playlist at a specific position
+				// 	spotifyApi.removeTracksFromPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, [{ uri : "spotify:track:" + results[i].trackid }])
+				// 	  .then(function(data) {
+				// 	    // console.log('Tracks removed from playlist!');
+				// 	  }, function(err) {
+				// 	    console.log('Something went wrong!', err);
+				// 	  });
+				// 	spotifyApi.addTracksToPlaylist(process.env.USERNAME, process.env.PLAYLIST_ID, ["spotify:track:" + results[i].trackid],
+				// 		// {
+				// 		// 	position : 100
+				// 		// }
+				// 	).then(function(data) {
+				// 			// console.log('Added tracks to playlist!');
+				// 		}, function(err) {
+				// 			console.log('Something went wrong.....', err);
+				// 		});
+				// 	}
 
 					res.render('index', {
 						user: req.user,

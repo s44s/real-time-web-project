@@ -5,8 +5,8 @@
 	<p>Wil jij meer van mij weten? Of wil je gewoon even laten weten dat je hier bent geweest? Laat dan jouw email adres achter met een nummer voor mijn afspeellijst op Spotify!</p>
 
 	<form action="/" method="post" enctype="application/json">
-		<label for="song">Song:</label>
-		<input id="song" type="text" name="song" placeholder="voeg jouw spotify nummer toe"/>
+		<label for="song">Search for a song</label>
+		<input id="song" type="text" name="song" placeholder="Search.."/>
 		<button type="submit">Zoek</button>
 	</form>
 	<% if (dataSongs !== undefined) { %>
@@ -17,12 +17,14 @@
 		<li><%= dataSongs.items[i].artists[0].name %> </li>
 		<p class="hide"><%= dataSongs.items[i].id %></p>
 		<p class="hide"><%= dataSongs.items[i].artists[0].id %></p>
-		<% if (dataSongs.items[i].preview_url !== null) { %>
-		<a target="_blank" href="<%= dataSongs.items[i].preview_url %>">Link</a>
-		<% } %>
 		<!-- <form class="add" action="/" method="post" enctype="application/json"> -->
 			<input class="hide" name="value" value="<%= dataSongs.items[i].id %>"/>
 			<button type="submit" class="add">Add</button>
+			<% if (dataSongs.items[i].preview_url !== null) { %>
+				<audio controls>
+					<source src="<%= dataSongs.items[i].preview_url %>" >
+				</audio>
+			<% } %>
 		<!-- </form> -->
 	</ul>
  <% }} %>
